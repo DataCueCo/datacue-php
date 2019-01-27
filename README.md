@@ -155,3 +155,21 @@ php examples/orders/delete.php
 ```
 php examples/events/track.php
 ```
+
+## Test exceptions
+
+### ExceedBodySizeLimitationException
+
+while the size of your request body is bigger then 5MB, you will receive an exception.
+
+```
+php examples/exceptions/exceedBodySizeLimitation.php
+```
+
+### ExceedListDataSizeLimitationException
+
+while you're using batch actions and the count of items is more then 500, you will receive an exception.
+
+```
+php examples/exceptions/exceedListDataSizeLimitation.php
+```
