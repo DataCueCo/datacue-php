@@ -1,0 +1,27 @@
+{
+  "name": "datacue/client",
+  "description": "DataCue Client",
+  "type": "library",
+  "require": {
+    "php": ">=5.4"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "chenruimin",
+      "email": "ruiminch@163.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "DataCue\\": "src/"
+    }
+  },
+  "repositories": {
+    "datacue": {
+      "type": "path",
+      "url": "./src"
+    }
+  }
+}
