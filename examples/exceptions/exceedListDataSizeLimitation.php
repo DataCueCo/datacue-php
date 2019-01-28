@@ -16,10 +16,11 @@ $datacue = new \DataCue\Client($apiKey, $apiSecret, $options, $env);
 
 print_r("--- batch create user begin ---\n");
 
-$res = $datacue->users->batchCreate($userDataList);
-
-print_r("--- batch create user response ---\n");
-
-print_r($res);
-
-print_r("--- batch create user end ---\n");
+try {
+    $res = $datacue->users->batchCreate($userDataList);
+    print_r("--- batch create user response ---\n");
+    print_r($res);
+    print_r("--- batch create user end ---\n");
+} catch (\DataCue\Exceptions\ExceedListDataSizeLimitationException $e) {
+    print_r("--- batch create user throw ExceedListDataSizeLimitationException ---\n");
+}

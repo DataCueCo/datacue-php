@@ -3,6 +3,7 @@
 namespace DataCue\Core;
 
 use DataCue\Exceptions\ExceedBodySizeLimitationException;
+use DataCue\Exceptions\ExceedListDataSizeLimitationException;
 use DataCue\Exceptions\RetryCountReachedException;
 
 /**
@@ -86,6 +87,10 @@ class Request
         if ($this->options['debug']) {
             print_r('code: ' . $httpCode . ' ');
             print_r($response. "\n");
+        }
+
+        if ($httpCode === 413) {
+            throw new ExceedListDataSizeLimitationException();
         }
 
         if ($httpCode >= 400 && $httpCode < 500) {
