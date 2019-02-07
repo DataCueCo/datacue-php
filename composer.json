@@ -8,6 +8,11 @@
   "license": "MIT",
   "authors": [
     {
+      "name": "DataCue",
+      "email": "contact@datacue.co",
+      "homepage": "https://www.datacue.co"
+    },
+    {
       "name": "chenruimin",
       "email": "ruiminch@163.com"
     }
