@@ -1,9 +1,10 @@
 {
   "name": "datacue/client",
   "description": "DataCue Client",
+  "version": "1.0.1-dev",
   "type": "library",
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.5"
   },
   "license": "MIT",
   "authors": [

@@ -5,6 +5,7 @@ namespace DataCue\Core;
 use DataCue\Exceptions\ExceedBodySizeLimitationException;
 use DataCue\Exceptions\ExceedListDataSizeLimitationException;
 use DataCue\Exceptions\RetryCountReachedException;
+use DataCue\Exceptions\UnauthorizedException;
 
 /**
  * Class Request
@@ -17,7 +18,7 @@ class Request
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
     const MAX_LIST_DATA_SIZE = 500;
-    const MAX_BODY_SIZE = 5 * 1024 * 1024;
+    const MAX_BODY_SIZE = 5242880; // 5 * 1024 * 1024
 
     private $apiKey = null;
     private $apiSecret = null;
@@ -87,6 +88,10 @@ class Request
         if ($this->options['debug']) {
             print_r('code: ' . $httpCode . ' ');
             print_r($response. "\n");
+        }
+
+        if ($httpCode === 401) {
+            throw new UnauthorizedException();
         }
 
         if ($httpCode === 413) {
