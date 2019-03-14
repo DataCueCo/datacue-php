@@ -15,7 +15,7 @@ composer require datacue/client
 
 # Usage
 
-Please refer to our (developer documentation)[https://developer.datacue.co] and switch to the PHP tab to see all examples.
+Please refer to our [developer documentation](https://developer.datacue.co) and switch to the PHP tab to see all examples.
 
 Basic Usage
 -----------
@@ -80,9 +80,9 @@ $client = new Client(
 
 Getting your credentials
 ------------------------
-You can find your API key and secret in your (dashboard)[https://app.datacue.co]
+You can find your API key and secret in your [dashboard](https://app.datacue.co)
 
-Don't have an account yet? (sign up here)[https://app.datacue.co/en/sign-up]
+Don't have an account yet? [sign up here](https://app.datacue.co/en/sign-up)
 
 Exceptions
 ----------
