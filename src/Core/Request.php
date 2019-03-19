@@ -80,7 +80,7 @@ class Request
             "Authorization: $auth",
         ]);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        if (is_null($data)) {
+        if ($method !== static::METHOD_GET) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
         }
         $response = curl_exec($curl);
