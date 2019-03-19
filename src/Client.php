@@ -7,6 +7,7 @@ use DataCue\Modules\Product;
 use DataCue\Modules\User;
 use DataCue\Modules\Order;
 use DataCue\Modules\Event;
+use DataCue\Modules\Overview;
 
 /**
  * Class Client
@@ -18,7 +19,7 @@ class Client
         'products' => Product::class,
         'users' => User::class,
         'orders' => Order::class,
-        'events' => Event::class,
+        'overview' => Overview::class,
     ];
 
     /**
@@ -40,6 +41,11 @@ class Client
      * @var \DataCue\Modules\Event|null
      */
     private $events = null;
+
+    /**
+     * @var \DataCue\Modules\Overview|null
+     */
+    private $overview = null;
 
     /**
      * @var \DataCue\Core\Request|null

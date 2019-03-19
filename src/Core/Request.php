@@ -80,7 +80,9 @@ class Request
             "Authorization: $auth",
         ]);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+        if (is_null($data)) {
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);
+        }
         $response = curl_exec($curl);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
@@ -115,7 +117,7 @@ class Request
      * @throws ExceedBodySizeLimitationException
      * @throws RetryCountReachedException
      */
-    private function requestWithBackOffRetry($url, $method, $data, $withoutChecksum)
+    private function requestWithBackOffRetry($url, $method, $data = null, $withoutChecksum = false)
     {
         $tryTimes = 0;
 
@@ -152,12 +154,12 @@ class Request
     }
 
     /**
-     * TDO
+     * get request
      * @param $url
      */
     public function get($url)
     {
-        // TDO
+        return $this->requestWithBackOffRetry($url, static::METHOD_GET, null);
     }
 
     /**
