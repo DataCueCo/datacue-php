@@ -20,6 +20,7 @@ class Client
         'products' => Product::class,
         'users' => User::class,
         'orders' => Order::class,
+        'events' => Event::class,
         'overview' => Overview::class,
         'client' => ClientModule::class,
     ];
