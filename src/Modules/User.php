@@ -10,9 +10,16 @@ class User extends Base
 {
     /**
      * Create user
+     *
      * @param $userData
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function create($userData)
     {
@@ -21,9 +28,16 @@ class User extends Base
 
     /**
      * Batch create users
+     *
      * @param array $userDataList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchCreate(array $userDataList)
     {
@@ -35,10 +49,17 @@ class User extends Base
 
     /**
      * Update user
+     *
      * @param $userId
      * @param $userData
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function update($userId, $userData)
     {
@@ -47,9 +68,16 @@ class User extends Base
 
     /**
      * Batch update users
+     *
      * @param array $userDataList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchUpdate(array $userDataList)
     {
@@ -60,9 +88,16 @@ class User extends Base
 
     /**
      * Delete user
+     *
      * @param $userId
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function delete($userId)
     {
@@ -71,9 +106,16 @@ class User extends Base
 
     /**
      * Batch delete users
+     *
      * @param array $userIdList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchDelete(array $userIdList)
     {

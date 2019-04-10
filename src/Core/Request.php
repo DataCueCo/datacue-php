@@ -2,8 +2,10 @@
 
 namespace DataCue\Core;
 
+use DataCue\Exceptions\ClientException;
 use DataCue\Exceptions\ExceedBodySizeLimitationException;
 use DataCue\Exceptions\ExceedListDataSizeLimitationException;
+use DataCue\Exceptions\NetworkErrorException;
 use DataCue\Exceptions\RetryCountReachedException;
 use DataCue\Exceptions\UnauthorizedException;
 
@@ -46,8 +48,12 @@ class Request
      * @param $data
      * @param $withoutChecksum
      * @return Response
+     * @throws ClientException
      * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
      * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     private function request($url, $method, $data, $withoutChecksum)
     {
@@ -92,16 +98,24 @@ class Request
             print_r($response. "\n");
         }
 
+        if ($httpCode === 0) {
+            throw new NetworkErrorException("HttpCode=$httpCode&Body=$response");
+        }
+
         if ($httpCode === 401) {
-            throw new UnauthorizedException();
+            throw new UnauthorizedException("HttpCode=$httpCode&Body=$response");
         }
 
         if ($httpCode === 413) {
-            throw new ExceedListDataSizeLimitationException();
+            throw new ExceedListDataSizeLimitationException("HttpCode=$httpCode&Body=$response");
         }
 
         if ($httpCode >= 400 && $httpCode < 500) {
-            throw new RetryCountReachedException();
+            throw new ClientException("HttpCode=$httpCode&Body=$response");
+        }
+
+        if ($httpCode >= 500 && $httpCode < 600) {
+            throw new RetryCountReachedException("HttpCode=$httpCode&Body=$response");
         }
 
         return new Response($httpCode, json_decode($response));
@@ -111,11 +125,15 @@ class Request
      * fetch url with retry
      * @param $url
      * @param $method
-     * @param $data
-     * @param $withoutChecksum
+     * @param null $data
+     * @param bool $withoutChecksum
      * @return Response|null
+     * @throws ClientException
      * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
      * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     private function requestWithBackOffRetry($url, $method, $data = null, $withoutChecksum = false)
     {
@@ -156,6 +174,13 @@ class Request
     /**
      * get request
      * @param $url
+     * @return Response|null
+     * @throws ClientException
+     * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
+     * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     public function get($url)
     {
@@ -168,8 +193,12 @@ class Request
      * @param $data
      * @param bool $withoutChecksum
      * @return Response|null
+     * @throws ClientException
      * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
      * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     public function post($url, $data, $withoutChecksum = false)
     {
@@ -182,8 +211,12 @@ class Request
      * @param $data
      * @param bool $withoutChecksum
      * @return Response|null
+     * @throws ClientException
      * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
      * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     public function put($url, $data, $withoutChecksum = false)
     {
@@ -196,8 +229,12 @@ class Request
      * @param null $data
      * @param bool $withoutChecksum
      * @return Response|null
+     * @throws ClientException
      * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
      * @throws RetryCountReachedException
+     * @throws UnauthorizedException
      */
     public function delete($url, $data = null, $withoutChecksum = false)
     {

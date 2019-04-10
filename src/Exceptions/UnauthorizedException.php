@@ -2,7 +2,7 @@
 
 namespace DataCue\Exceptions;
 
-class UnauthorizedException extends \Exception
+class UnauthorizedException extends ClientException
 {
     public function errorMessage()
     {
