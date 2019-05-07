@@ -21,6 +21,7 @@ class Request
     const METHOD_DELETE = 'DELETE';
     const MAX_LIST_DATA_SIZE = 500;
     const MAX_BODY_SIZE = 5242880; // 5 * 1024 * 1024
+    const HTTP_TIMEOUT = 5;
 
     private $apiKey = null;
     private $apiSecret = null;
@@ -79,6 +80,8 @@ class Request
         }
 
         $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        curl_setopt($curl, CURLOPT_TIMEOUT, static::HTTP_TIMEOUT);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
@@ -91,7 +94,6 @@ class Request
         }
         $response = curl_exec($curl);
         $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
 
         if ($this->options['debug']) {
             print_r('code: ' . $httpCode . ' ');
@@ -99,8 +101,13 @@ class Request
         }
 
         if ($httpCode === 0) {
-            throw new NetworkErrorException("HttpCode=$httpCode&Body=$response");
+            $errno = curl_errno($curl);
+            $error = curl_error($curl);
+            curl_close($curl);
+            throw new NetworkErrorException("HttpCode=$httpCode&Body=$response&Errno=$errno&Error=$error");
         }
+
+        curl_close($curl);
 
         if ($httpCode === 401) {
             throw new UnauthorizedException("HttpCode=$httpCode&Body=$response");
