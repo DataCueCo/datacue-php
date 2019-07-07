@@ -1,175 +1,96 @@
-# Installation
+DataCue Integration Library
+===========================
 
-1. Download source code.
+A library to enable content personalization with DataCue on your PHP based e-commerce store
 
+Installation
+------------
+
+Use composer to manage your dependencies and download DataCue Client:
+
+```bash
+composer require datacue/client
 ```
-git clone https://github.com/DataCueCo/datacue-php.git
-```
 
-2. Generate autoload.
 
-```
-composer dump-autoload
-```
+# Usage
 
-# Configuration
+Please refer to our [developer documentation](https://developer.datacue.co) and switch to the PHP tab to see all examples.
 
-Open file /examples/config.php , you can see and change the $options. All configuration items are optional.
+Basic Usage
+-----------
+```php
+<?php
+use DataCue\Client;
 
-```
-$options = [
-    'max_try_times' => 10,
-    'pow_base' => 2,
-    'debug' => true, // If true, some log info will be printed.
+$apikey = "your-api-key";
+$apisecret = "your-api-secret";
+
+$datacue = new Client(
+    $apiKey,
+    $apiSecret
+);
+
+$data = [
+  "product_id" => "p1",
+  "variant_id" => "v1",
+  "main_category" => "jeans",
+  "categories" => ["men","summer","jeans"],
+  "name" => "cool jeans",
+  "brand" => "zara",
+  "description" => "very fashionable jeans",
+  "color" => "blue",
+  "size" => "M",
+  "price" => 25000,
+  "full_price" => 30000,
+  "available" => True,
+  "stock" => 5,
+  "extra" => [
+    "extra_feature" => "details"
+  ],
+  "photo_url" => "https://s3.amazon.com/image.png",
+  "link" => "/product/p1",
+  "owner_id" => "user_id_3"
 ];
+
+$res = $datacue->products->create($data);
 ```
 
-And fill in your $apiKey and $apiSecret.
+Advanced Usage
+--------------
 
-# Publish
+```php
+$apikey = "your-api-key";
+$apisecret = "your-api-secret";
+$env = "staging"; //use our test servers to try your code, default is production
 
-**You can change authors info in composer.json**
+$options = [
+    'max_try_times' => 10, //number of times to try resending if there was a failure
+    'pow_base' => 2, //used to adjust exponential backoff, best to leave this setting untouched
+    'debug' => true, // If true, additional debug info is printed to the console
+];
 
-## How to publish
-
-see https://packagist.org/
-
-# Run test
-
-## Products
-
-### Create product
-
-```
-php examples/products/create.php
-```
-
-### Batch create products
-
-```
-php examples/products/batchCreate.php
+$client = new Client(
+    $apiKey,
+    $apiSecret,
+    $options,
+    $env
+);
 ```
 
-### Update product
+Getting your credentials
+------------------------
+You can find your API key and secret in your [dashboard](https://app.datacue.co)
 
-```
-php examples/products/update.php
-```
+Don't have an account yet? [sign up here](https://app.datacue.co/en/sign-up)
 
-
-### Batch update products
-
-```
-php examples/products/batchUpdate.php
-```
-
-### Delete product
-
-```
-// delete all variants of product
-php examples/products/deleteProduct.php
-// just delete a variant of product
-php examples/products/deleteVariant.php
-```
-
-### Batch delete product
-
-```
-php examples/products/batchDelete.php
-```
-
-## Users
-
-### Create user
-
-```
-php examples/users/create.php
-```
-
-### Batch create users
-
-```
-php examples/users/batchCreate.php
-```
-
-### Update user
-
-```
-php examples/users/update.php
-```
-
-### Batch update users
-
-```
-php examples/users/batchUpdate.php
-```
-
-### Delete user
-
-```
-php examples/users/delete.php
-```
-
-### Batch delete users
-
-```
-php examples/users/batchDelete.php
-```
-
-## Orders
-
-### Create order
-
-```
-php examples/orders/create.php
-```
-
-### Batch create orders
-
-```
-php examples/orders/batchCreate.php
-```
-
-### Cancel order
-
-```
-php examples/orders/cancel.php
-```
-
-### Batch cancel orders
-
-```
-php examples/orders/batchCancel.php
-```
-
-### Delete order
-
-```
-php examples/orders/delete.php
-```
-
-## Events
-
-### Track event
-
-```
-php examples/events/track.php
-```
-
-## Test exceptions
+Exceptions
+----------
 
 ### ExceedBodySizeLimitationException
 
-while the size of your request body is bigger then 5MB, you will receive an exception.
-
-```
-php examples/exceptions/exceedBodySizeLimitation.php
-```
+Ensure that the size of each payload does not exceed 5MB. If you receive this exception, break up your request into chunks smaller than 5MB and try again.
 
 ### ExceedListDataSizeLimitationException
 
-while you're using batch actions and the count of items is more then 500, you will receive an exception.
-
-```
-php examples/exceptions/exceedListDataSizeLimitation.php
-```
+Ensure that you don't see more than 500 items in a single batch request. If you receive this exception, break up your request into at least 500 per request and try again.
