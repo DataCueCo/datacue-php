@@ -10,9 +10,16 @@ class Product extends Base
 {
     /**
      * Create product
+     *
      * @param $productData
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function create($productData)
     {
@@ -21,9 +28,16 @@ class Product extends Base
 
     /**
      * Batch create products
+     *
      * @param array $productDataList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchCreate(array $productDataList)
     {
@@ -35,11 +49,18 @@ class Product extends Base
 
     /**
      * Update product
+     *
      * @param $productId
      * @param $variantId
      * @param $productData
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function update($productId, $variantId, $productData)
     {
@@ -48,9 +69,16 @@ class Product extends Base
 
     /**
      * Batch update products
+     *
      * @param array $productDataList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchUpdate(array $productDataList)
     {
@@ -61,10 +89,17 @@ class Product extends Base
 
     /**
      * Delete product
+     *
      * @param $productId
      * @param null $variantId
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function delete($productId, $variantId = null)
     {
@@ -77,9 +112,16 @@ class Product extends Base
 
     /**
      * Batch delete products
+     *
      * @param array $productAndVariantIdList
      * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
      * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function batchDelete(array $productAndVariantIdList)
     {

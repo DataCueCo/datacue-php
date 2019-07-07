@@ -32,12 +32,19 @@ class Event extends Base
 
     /**
      * Track event
+     *
      * @param $userData
      * @param $eventData
      * @param null $context
      * @param null $timestamp
      * @return \DataCue\Core\Response|null
      * @throws InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
      */
     public function track($userData, $eventData, $context = null, $timestamp = null)
     {

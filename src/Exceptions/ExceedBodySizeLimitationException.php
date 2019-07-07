@@ -2,7 +2,7 @@
 
 namespace DataCue\Exceptions;
 
-class ExceedBodySizeLimitationException extends \Exception
+class ExceedBodySizeLimitationException extends ClientException
 {
     public function errorMessage()
     {
