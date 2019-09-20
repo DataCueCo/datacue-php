@@ -129,4 +129,21 @@ class User extends Base
             ),
         ]);
     }
+
+    /**
+     * Delete all users
+     *
+     * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
+     * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
+     */
+    public function deleteAll()
+    {
+        return $this->request->delete($this->url('users/all'));
+    }
 }

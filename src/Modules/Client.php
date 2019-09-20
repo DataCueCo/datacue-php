@@ -24,4 +24,21 @@ class Client extends Base
     {
         return $this->request->delete($this->url('clients'));
     }
+
+    /**
+     * Get sync requirement
+     *
+     * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
+     * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
+     */
+    public function sync()
+    {
+        return $this->request->get($this->url('clients/sync'));
+    }
 }
