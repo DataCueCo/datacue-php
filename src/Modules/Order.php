@@ -156,6 +156,6 @@ class Order extends Base
      */
     public function deleteAll()
     {
-        return $this->request->delete($this->url('orders/all'));
+        return $this->request->delete($this->url('batch/orders/all'));
     }
 }

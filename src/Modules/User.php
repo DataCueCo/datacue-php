@@ -144,6 +144,6 @@ class User extends Base
      */
     public function deleteAll()
     {
-        return $this->request->delete($this->url('users/all'));
+        return $this->request->delete($this->url('batch/users/all'));
     }
 }

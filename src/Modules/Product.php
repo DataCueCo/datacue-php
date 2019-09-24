@@ -145,6 +145,6 @@ class Product extends Base
      */
     public function deleteAll()
     {
-        return $this->request->delete($this->url('products/all'));
+        return $this->request->delete($this->url('batch/products/all'));
     }
 }
