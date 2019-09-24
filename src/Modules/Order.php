@@ -8,32 +8,6 @@ namespace DataCue\Modules;
  */
 class Order extends Base
 {
-    /**
-     * Transform order data
-     * 
-     * @param $orderData
-     * @return array
-     */
-    public static function transformOrderData($orderData)
-    {
-        $cart = [];
-        foreach($orderData['cart'] as $orderItem) {
-            $existing = false;
-            foreach ($cart as &$item) {
-                if ($item['product_id'] === $orderItem['product_id'] && $item['variant_id'] === $orderItem['variant_id'] && $item['unit_price'] === $orderItem['unit_price']) {
-                    $item['quantity'] = intval($item['quantity']) + intval($orderItem['quantity']);
-                    $existing = true;
-                }
-            }
-            if (!$existing) {
-                $cart[] = $orderItem;
-            }
-        }
-
-        $orderData['cart'] = $cart;
-
-        return $orderData;
-    }
 
     /**
      * Create order
@@ -50,7 +24,7 @@ class Order extends Base
      */
     public function create($orderData)
     {
-        return $this->request->post($this->url('orders'), static::transformOrderData($orderData));
+        return $this->request->post($this->url('orders'), $orderData);
     }
 
     /**
@@ -70,9 +44,7 @@ class Order extends Base
     {
         return $this->request->post($this->url('batch'), [
             'type' => 'orders',
-            'batch' => array_map(function ($item) {
-                return static::transformOrderData($item);
-            }, $orderDataList),
+            'batch' => $orderDataList,
         ]);
     }
 
