@@ -36,10 +36,28 @@ class Request
      * @param $payload
      * @throws ExceedBodySizeLimitationException
      */
-    private function checkPayload($payload) {
+    private function checkPayload($payload)
+    {
         if (strlen($payload) > static::MAX_BODY_SIZE) {
             throw new ExceedBodySizeLimitationException();
         }
+    }
+
+    /**
+     * @param $auth
+     * @return array
+     */
+    private function generateHeader($auth)
+    {
+        $headers = [
+            "Authorization: $auth",
+        ];
+
+        foreach (Headers::getHeaders() as $key => $value) {
+            $headers[] = "$key: $value";
+        }
+
+        return $headers;
     }
 
     /**
@@ -84,10 +102,7 @@ class Request
         curl_setopt($curl, CURLOPT_TIMEOUT, static::HTTP_TIMEOUT);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            "Content-Type: application/json",
-            "Authorization: $auth",
-        ]);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $this->generateHeader($auth));
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         if ($method !== static::METHOD_GET) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $payload);

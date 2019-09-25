@@ -3,6 +3,7 @@
 namespace DataCue;
 
 use DataCue\Core\Request;
+use DataCue\Core\Headers;
 use DataCue\Modules\Product;
 use DataCue\Modules\User;
 use DataCue\Modules\Order;
@@ -16,6 +17,11 @@ use DataCue\Modules\Client as ClientModule;
  */
 class Client
 {
+    /**
+     * @var null|string
+     */
+    private static $version = null;
+
     private static $modules = [
         'products' => Product::class,
         'users' => User::class,
@@ -24,6 +30,12 @@ class Client
         'overview' => Overview::class,
         'client' => ClientModule::class,
     ];
+
+    public static function setIntegrationAndVersion($integration, $version)
+    {
+        Headers::setHeader('X-DataCue-Integration', $integration);
+        Headers::setHeader('X-DataCue-Integration-Version', $version);
+    }
 
     /**
      * @var \DataCue\Modules\Product|null
@@ -69,6 +81,12 @@ class Client
     {
         $this->request = new Request($apiKey, $apiSecret, $options);
         $this->env = $env;
+
+        if (is_null(static::$version)) {
+            $packageInfo = json_decode(file_get_contents(__DIR__ . '/../composer.json'));
+            static::$version = $packageInfo->version;
+            Headers::setHeader('X-DataCue-PHP-Library-Version', static::$version);
+        }
     }
 
     public function __get($propertyName)
