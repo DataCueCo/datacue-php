@@ -41,10 +41,7 @@ class Product extends Base
      */
     public function batchCreate(array $productDataList)
     {
-        return $this->request->post($this->url('batch'), [
-            'type' => 'products',
-            'batch' => $productDataList,
-        ]);
+        return $this->request->post($this->url('batch/products'), $productDataList);
     }
 
     /**
@@ -82,9 +79,7 @@ class Product extends Base
      */
     public function batchUpdate(array $productDataList)
     {
-        return $this->request->put($this->url('batch/products'), [
-            'batch' => $productDataList,
-        ]);
+        return $this->request->put($this->url('batch/products'), $productDataList);
     }
 
     /**
@@ -125,10 +120,7 @@ class Product extends Base
      */
     public function batchDelete(array $productAndVariantIdList)
     {
-        return $this->request->delete($this->url('batch'), [
-            'type' => 'products',
-            'batch' => $productAndVariantIdList,
-        ]);
+        return $this->request->delete($this->url('batch/products'), $productAndVariantIdList);
     }
 
     /**

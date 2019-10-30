@@ -17,6 +17,7 @@ class Request
 {
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
+    const METHOD_PATCH = 'PATCH';
     const METHOD_PUT = 'PUT';
     const METHOD_DELETE = 'DELETE';
     const MAX_LIST_DATA_SIZE = 500;
@@ -225,6 +226,24 @@ class Request
     public function post($url, $data, $withoutChecksum = false)
     {
         return $this->requestWithBackOffRetry($url, static::METHOD_POST, $data, $withoutChecksum);
+    }
+
+    /**
+     * patch request
+     * @param $url
+     * @param $data
+     * @param bool $withoutChecksum
+     * @return Response|null
+     * @throws ClientException
+     * @throws ExceedBodySizeLimitationException
+     * @throws ExceedListDataSizeLimitationException
+     * @throws NetworkErrorException
+     * @throws RetryCountReachedException
+     * @throws UnauthorizedException
+     */
+    public function patch($url, $data, $withoutChecksum = false)
+    {
+        return $this->requestWithBackOffRetry($url, static::METHOD_PATCH, $data, $withoutChecksum);
     }
 
     /**

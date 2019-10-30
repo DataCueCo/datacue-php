@@ -41,10 +41,7 @@ class User extends Base
      */
     public function batchCreate(array $userDataList)
     {
-        return $this->request->post($this->url('batch'), [
-            'type' => 'users',
-            'batch' => $userDataList,
-        ]);
+        return $this->request->post($this->url('batch/users'), $userDataList);
     }
 
     /**
@@ -81,9 +78,7 @@ class User extends Base
      */
     public function batchUpdate(array $userDataList)
     {
-        return $this->request->put($this->url('batch/users'), [
-            'batch' => $userDataList,
-        ]);
+        return $this->request->put($this->url('batch/users'), $userDataList);
     }
 
     /**
@@ -119,15 +114,12 @@ class User extends Base
      */
     public function batchDelete(array $userIdList)
     {
-        return $this->request->delete($this->url('batch'), [
-            'type' => 'users',
-            'batch' => array_map(
-                function ($id) {
-                    return ['user_id' => $id];
-                },
-                $userIdList
-            ),
-        ]);
+        return $this->request->delete($this->url('batch/users'), array_map(
+            function ($id) {
+                return ['user_id' => $id];
+            },
+            $userIdList
+        ));
     }
 
     /**

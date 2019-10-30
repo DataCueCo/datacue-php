@@ -42,10 +42,7 @@ class Order extends Base
      */
     public function batchCreate(array $orderDataList)
     {
-        return $this->request->post($this->url('batch'), [
-            'type' => 'orders',
-            'batch' => $orderDataList,
-        ]);
+        return $this->request->post($this->url('batch/orders'), $orderDataList);
     }
 
     /**
@@ -63,7 +60,7 @@ class Order extends Base
      */
     public function cancel($orderId)
     {
-        return $this->request->put($this->url("orders/$orderId"), [
+        return $this->request->patch($this->url("orders/$orderId"), [
             'order_status' => 'cancelled',
         ]);
     }
@@ -83,7 +80,7 @@ class Order extends Base
      */
     public function batchCancel(array $orderIdList)
     {
-        return $this->request->put($this->url('batch/orders'), [
+        return $this->request->patch($this->url('batch/orders'), [
             'batch' => array_map(
                 function ($id) {
                     return [
