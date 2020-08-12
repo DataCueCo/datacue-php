@@ -112,6 +112,24 @@ class Order extends Base
     }
 
     /**
+     * Batch delete orders
+     *
+     * @param array $orderIdList
+     * @return \DataCue\Core\Response|null
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
+     * @throws \DataCue\Exceptions\InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
+     */
+    public function batchDelete(array $orderIdList)
+    {
+        return $this->request->delete($this->url('batch/orders'), $orderIdList);
+    }
+
+    /**
      * Delete all orders
      *
      * @return \DataCue\Core\Response|null
