@@ -63,4 +63,22 @@ class Event extends Base
 
         return $this->request->post($this->url(''), $data, true);
     }
+
+    /**
+     * Track event
+     *
+     * @param $events
+     * @return \DataCue\Core\Response|null
+     * @throws InvalidEnvironmentException
+     * @throws \DataCue\Exceptions\ClientException
+     * @throws \DataCue\Exceptions\ExceedBodySizeLimitationException
+     * @throws \DataCue\Exceptions\ExceedListDataSizeLimitationException
+     * @throws \DataCue\Exceptions\NetworkErrorException
+     * @throws \DataCue\Exceptions\RetryCountReachedException
+     * @throws \DataCue\Exceptions\UnauthorizedException
+     */
+    public function batchTrack(array $events)
+    {
+        return $this->request->post($this->url(''), $events, true);
+    }
 }
